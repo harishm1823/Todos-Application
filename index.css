@@ -122,7 +122,32 @@ body {
 }
 
 .delete-button {
-    display: none;
+    width: 32px;
+    height: 32px;
+    flex-shrink: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+    border-radius: 6px;
+    transition: transform 0.2s ease, background-color 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.delete-button:hover {
+    transform: scale(1.15);
+    background-color: rgba(239, 68, 68, 0.1);
+}
+
+.delete-button:active {
+    transform: scale(0.95);
+}
+
+.delete-icon {
+    width: 22px;
+    height: 22px;
 }
 
 .checked {

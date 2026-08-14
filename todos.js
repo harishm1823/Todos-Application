@@ -111,6 +111,13 @@ function createAndAppendTodo(todo) {
     deleteButton.onclick = function() {
         onDeleteTodo(todoId);
     };
+
+    let deleteIcon = document.createElement("img");
+    deleteIcon.src = "trash-icon.png";
+    deleteIcon.alt = "Delete";
+    deleteIcon.classList.add("delete-icon");
+    deleteButton.appendChild(deleteIcon);
+
     rowContainer.appendChild(deleteButton);
 }
 
