@@ -3,6 +3,7 @@
 let todoItemsContainer = document.getElementById("todoItemsContainer");
 let addTodoButton = document.getElementById("addTodoButton");
 let saveTodoButton = document.getElementById("saveTodoButton");
+let userInputElement = document.getElementById("todoUserInput");
 
 function getTodoListFromLocalStorage() {
     let stringifiedTodoList = localStorage.getItem("todoList");
@@ -22,11 +23,11 @@ saveTodoButton.onclick = function() {
 };
 
 function onAddTodo() {
-    let userInputElement = document.getElementById("todoUserInput");
-    let userInputValue = userInputElement.value;
+    let userInputValue = userInputElement.value.trim();
 
     if (userInputValue === "") {
-        alert("Enter Valid Text");
+        alert("Enter valid task text");
+        userInputElement.focus();
         return;
     }
 
@@ -39,32 +40,38 @@ function onAddTodo() {
     todoList.push(newTodo);
     createAndAppendTodo(newTodo);
     userInputElement.value = "";
+    userInputElement.focus();
 }
 
 addTodoButton.onclick = function() {
     onAddTodo();
 };
 
+userInputElement.onkeydown = function(event) {
+    if (event.key === "Enter") {
+        onAddTodo();
+    }
+};
+
 function onTodoStatusChange(checkboxId, labelId) {
     let checkboxElement = document.getElementById(checkboxId);
     let labelElement = document.getElementById(labelId);
-    labelElement.classList.toggle("checked");
+    labelElement.classList.toggle("checked", checkboxElement.checked);
 }
 
 function onDeleteTodo(todoId) {
     let todoElement = document.getElementById(todoId);
-    todoItemsContainer.removeChild(todoElement);
+    if (todoElement) {
+        todoItemsContainer.removeChild(todoElement);
+    }
 
     let deleteElementIndex = todoList.findIndex(function(eachTodo) {
-        let eachTodoId = "todo" + eachTodo.uniqueNo;
-        if (eachTodoId === todoId) {
-            return true;
-        } else {
-            return false;
-        }
+        return ("todo" + eachTodo.uniqueNo) === todoId;
     });
 
-    todoList.splice(deleteElementIndex, 1);
+    if (deleteElementIndex !== -1) {
+        todoList.splice(deleteElementIndex, 1);
+    }
 }
 
 function createAndAppendTodo(todo) {
@@ -73,44 +80,38 @@ function createAndAppendTodo(todo) {
     let labelId = "label" + todo.uniqueNo;
 
     let todoElement = document.createElement("li");
-    todoElement.classList.add("todo-item-container", "d-flex", "flex-row");
+    todoElement.classList.add("todo-item-container");
     todoElement.id = todoId;
     todoItemsContainer.appendChild(todoElement);
+
+    let rowContainer = document.createElement("div");
+    rowContainer.classList.add("todo-row");
+    todoElement.appendChild(rowContainer);
 
     let inputElement = document.createElement("input");
     inputElement.type = "checkbox";
     inputElement.id = checkboxId;
-
+    inputElement.classList.add("checkbox-input");
     inputElement.onclick = function() {
         onTodoStatusChange(checkboxId, labelId);
     };
-
-    inputElement.classList.add("checkbox-input");
-    todoElement.appendChild(inputElement);
-
-    let labelContainer = document.createElement("div");
-    labelContainer.classList.add("label-container", "d-flex", "flex-row");
-    todoElement.appendChild(labelContainer);
+    rowContainer.appendChild(inputElement);
 
     let labelElement = document.createElement("label");
     labelElement.setAttribute("for", checkboxId);
     labelElement.id = labelId;
     labelElement.classList.add("checkbox-label");
     labelElement.textContent = todo.text;
-    labelContainer.appendChild(labelElement);
+    rowContainer.appendChild(labelElement);
 
-    let deleteIconContainer = document.createElement("div");
-    deleteIconContainer.classList.add("delete-icon-container");
-    labelContainer.appendChild(deleteIconContainer);
-
-    let deleteIcon = document.createElement("i");
-    deleteIcon.classList.add("far", "fa-trash-alt", "delete-icon");
-
-    deleteIcon.onclick = function() {
+    let deleteButton = document.createElement("button");
+    deleteButton.type = "button";
+    deleteButton.classList.add("delete-button");
+    deleteButton.setAttribute("aria-label", "Delete task");
+    deleteButton.onclick = function() {
         onDeleteTodo(todoId);
     };
-
-    deleteIconContainer.appendChild(deleteIcon);
+    rowContainer.appendChild(deleteButton);
 }
 
 for (let todo of todoList) {

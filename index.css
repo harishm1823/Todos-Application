@@ -1,50 +1,67 @@
 @import url("https://fonts.googleapis.com/css2?family=Bree+Serif&family=Caveat:wght@400;700&family=Lobster&family=Monoton&family=Open+Sans:ital,wght@0,400;0,700;1,400;1,700&family=Playfair+Display+SC:ital,wght@0,400;0,700;1,700&family=Playfair+Display:ital,wght@0,400;0,700;1,700&family=Roboto:ital,wght@0,400;0,700;1,400;1,700&family=Source+Sans+Pro:ital,wght@0,400;0,700;1,700&family=Work+Sans:ital,wght@0,400;0,700;1,700&display=swap");
 
+body {
+    background: linear-gradient(135deg, #eef4ff 0%, #f9fbff 100%);
+    font-family: "Roboto", sans-serif;
+}
+
 .todos-bg-container {
-    background-color: #f9fbfe;
-    height: 100vh;
+    background-color: rgba(255, 255, 255, 0.8);
+    min-height: 100vh;
+    padding: 40px 0 70px;
+}
+
+.container {
+    max-width: 760px;
 }
 
 .todos-heading {
     text-align: center;
     font-family: "Roboto";
     font-size: 46px;
-    font-weight: 500;
+    font-weight: 700;
     margin-top: 20px;
     margin-bottom: 20px;
+    color: #1f2937;
 }
 
-.create-task-heading {
-    font-family: "Roboto";
-    font-size: 32px;
-    font-weight: 700;
-}
-
-.create-task-heading-subpart {
-    font-family: "Roboto";
-    font-size: 32px;
-    font-weight: 500;
-}
-
+.create-task-heading,
 .todo-items-heading {
     font-family: "Roboto";
     font-size: 32px;
     font-weight: 700;
+    color: #1f2937;
+    margin-top: 18px;
 }
 
+.create-task-heading-subpart,
 .todo-items-heading-subpart {
     font-family: "Roboto";
     font-size: 32px;
     font-weight: 500;
+    color: #4c63b6;
 }
 
 .todo-items-container {
-    margin: 0;
+    margin: 20px 0 0;
     padding: 0;
+    list-style: none;
 }
 
 .todo-item-container {
     margin-top: 15px;
+}
+
+.todo-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: #ffffff;
+    border: 1px solid #dfe7f5;
+    border-left: 6px solid #4c63b6;
+    border-radius: 12px;
+    padding: 12px 14px;
+    box-shadow: 0 8px 20px rgba(76, 99, 182, 0.08);
 }
 
 .todo-user-input {
@@ -52,68 +69,64 @@
     width: 100%;
     border-style: solid;
     border-width: 1px;
-    border-color: #e4e7eb;
+    border-color: #dfe7f5;
     border-radius: 10px;
     margin-top: 10px;
-    padding: 15px;
+    padding: 15px 18px;
+    box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.04);
+}
+
+.todo-user-input:focus {
+    outline: none;
+    border-color: #4c63b6;
+    box-shadow: 0 0 0 3px rgba(76, 99, 182, 0.12);
 }
 
 .button {
     color: white;
-    background-color: #4c63b6;
+    background: linear-gradient(135deg, #4c63b6 0%, #3d56a6 100%);
     font-family: "Roboto";
     font-size: 18px;
     border-width: 0;
-    border-radius: 4px;
+    border-radius: 8px;
     margin-top: 20px;
-    margin-bottom: 50px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    padding-right: 20px;
-    padding-left: 20px;
+    margin-bottom: 25px;
+    padding: 8px 22px;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    box-shadow: 0 8px 18px rgba(76, 99, 182, 0.22);
 }
 
-.label-container {
-    background-color: #e6f6ff;
-    width: 100%;
-    border-style: solid;
-    border-width: 5px;
-    border-color: #096f92;
-    border-right: none;
-    border-top: none;
-    border-bottom: none;
-    border-radius: 4px;
+.button:hover {
+    transform: translateY(-1px);
 }
 
 .checkbox-input {
     width: 20px;
     height: 20px;
-    margin-top: 12px;
-    margin-right: 12px;
+    margin: 0;
+    flex-shrink: 0;
+    accent-color: #4c63b6;
 }
 
 .checkbox-label {
     font-family: "Roboto";
     font-size: 16px;
     font-weight: 400;
-    width: 82%;
+    flex: 1;
     margin: 0;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    padding-left: 20px;
-    padding-right: 20px;
-    border-radius: 5px;
+    padding: 8px 12px;
+    border-radius: 8px;
+    color: #1f2937;
+    word-break: break-word;
+    transition: all 0.2s ease;
 }
 
-.delete-icon-container {
-    text-align: right;
-    width: 18%;
-}
-
-.delete-icon {
-    padding: 15px;
+.delete-button {
+    display: none;
 }
 
 .checked {
     text-decoration: line-through;
+    color: #94a3b8;
+    background-color: #f1f5f9;
 }
